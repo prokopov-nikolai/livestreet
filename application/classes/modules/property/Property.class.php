@@ -445,13 +445,15 @@ class ModuleProperty extends ModuleORM
          */
         if (isset($aFilter['#properties']) and $aFilter['#properties']) {
             $aEntitiesId = array();
+            $aTartgetType = array();
             foreach ($aEntitiesWork as $oEntity) {
                 $aEntitiesId[] = $oEntity->getId();
+                $aTartgetType['topic_'.$oEntity->getTopicType()] = 'topic_'.$oEntity->getTopicType();
             }
             /**
              * Получаем все свойства со значениями для всех объектов
              */
-            $aResult = $this->oMapper->GetPropertiesValueByTargetArray($sTargetType, $aEntitiesId);
+            $aResult = $this->oMapper->GetPropertiesValueByTargetArray(array_keys($aTartgetType), $aEntitiesId);;
             if ($aResult) {
                 /**
                  * Формируем список свойств и значений
